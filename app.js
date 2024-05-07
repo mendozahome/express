@@ -18,23 +18,27 @@ app.listen(3000)
 
 
 app.get('/', (req,res) => {
-//res.send('<p>Home page</p>');
-res.sendFile('./docs/index.html', { root: __dirname });
+const blogs = [
+    {title:'Yoshi finds eggs', snippet:'Lorem ispum'},
+    {title:'Yoshi finds stars', snippet:'Lorem ispum'},
+    {title:'Yoshi finds bowser', snippet:'Lorem ispum'},
+]    ;
+res.render('index',{title:'Home' , blogs:blogs });
 });
+
 
 
 app.get('/about', (req,res) => {
-    //res.send('<p>About page</p>');
+  res.render('about', { title: 'About'});
 
-    res.sendFile('./docs/about.html', { root: __dirname });
     });
 
-app.get('/about-us', (req, res) => {
-    res.redirect('/about');
+app.get('/blogs/create', (req, res) => {
+    res.render('create' , {title: 'Create'});
 });
 
 app.use((req, res) => {
-    res.status(404).sendFile('./docs/404.html', { root: __dirname });
-})
+    res.status(404).render('404', {title: '404'})
+});
 
 
